@@ -1,0 +1,13 @@
+{
+  "name": "poc-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "express": "^4.21.2"
+  }
+}

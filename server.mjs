@@ -8,6 +8,20 @@ const sql = neon(process.env.DATABASE_URL)
 
 app.use(express.json({ limit: '5mb' }))
 
+// 啟動時自動建表
+await sql`
+  CREATE TABLE IF NOT EXISTS poc_reports (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title TEXT NOT NULL,
+    category TEXT NOT NULL DEFAULT 'report',
+    author TEXT NOT NULL DEFAULT 'CLO',
+    html_content TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )
+`
+console.log('poc_reports 表已確認')
+
 // ── 工具函數 ──────────────────────────────────────────────
 function checkToken(req) {
   return req.headers['x-poc-token'] === PASSWORD
